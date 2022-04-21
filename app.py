@@ -58,8 +58,6 @@ def authorize():
     return "нет логина"
 
 
-
-
 @app.route('/list')
 def main():
     userID = request.cookies.get("userID")
