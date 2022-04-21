@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+
+<h2>My Projects</h2>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for projects.." title="Type in a name">
+
+<table id="myTable">
+  <tr class="header">
+    <th style="width:40%;">Project name</th>
+    <th style="width:20%;">Tasks in "To do"</th>
+    <th style="width:20%;">Tasks in progress</th>
+    <th style="width:20%;">Tasks done</th>
+  </tr>
+  <tr>
+  <td>Project0</td>
+  <td>12</td>
+  <td>2</td>
+  <td>1</td>
+  </tr>
+  <tr>
+  <td>Project1</td>
+  <td>1</td>
+  <td>7</td>
+  <td>4</td>
+  </tr>
+  <tr>
+  <td>Project2</td>
+  <td>5</td>
+  <td>3</td>
+  <td>9</td>
+  </tr>
+  <tr>
+  <td>Project3</td>
+  <td>2</td>
+  <td>20</td>
+  <td>2</td>
+  </tr>
+  <tr>
+  <td>Project4</td>
+  <td>1</td>
+  <td>0</td>
+  <td>4</td>
+  </tr>
+  <tr>
+  <td>Project5</td>
+  <td>10</td>
+  <td>9</td>
+  <td>13</td>
+  </tr>
+  <tr>
+  <td>Project6</td>
+  <td>10</td>
+  <td>0</td>
+  <td>17</td>
+  </tr>
+  <tr>
+  <td>Project7</td>
+  <td>9</td>
+  <td>16</td>
+  <td>4</td>
+  </tr>
+  <tr>
+  <td>Project8</td>
+  <td>19</td>
+  <td>19</td>
+  <td>8</td>
+  </tr>
+  <tr>
+  <td>Project9</td>
+  <td>18</td>
+  <td>16</td>
+  <td>19</td>
+  </tr>
+  <tr>
+  <td>Project10</td>
+  <td>7</td>
+  <td>8</td>
+  <td>2</td>
+  </tr>
+  <tr>
+  <td>Project11</td>
+  <td>20</td>
+  <td>0</td>
+  <td>19</td>
+  </tr>
+  <tr>
+  <td>Project12</td>
+  <td>12</td>
+  <td>15</td>
+  <td>12</td>
+  </tr>
+  <tr>
+  <td>Project13</td>
+  <td>18</td>
+  <td>19</td>
+  <td>8</td>
+  </tr>
+  <tr>
+  <td>Project14</td>
+  <td>20</td>
+  <td>2</td>
+  <td>17</td>
+  </tr>
+  <tr>
+  <td>Project15</td>
+  <td>11</td>
+  <td>3</td>
+  <td>0</td>
+  </tr>
+  <tr>
+  <td>Project16</td>
+  <td>5</td>
+  <td>3</td>
+  <td>6</td>
+  </tr>
+  <tr>
+  <td>Project17</td>
+  <td>11</td>
+  <td>3</td>
+  <td>16</td>
+  </tr>
+  <tr>
+  <td>Project18</td>
+  <td>14</td>
+  <td>7</td>
+  <td>12</td>
+  </tr>
+  <tr>
+  <td>Project19</td>
+  <td>4</td>
+  <td>4</td>
+  <td>16</td>
+  </tr>
+  <tr>
+  <td>Project20</td>
+  <td>12</td>
+  <td>15</td>
+  <td>8</td>
+  </tr>
+  <tr>
+  <td>Project21</td>
+  <td>6</td>
+  <td>20</td>
+  <td>20</td>
+  </tr>
+  <tr>
+  <td>Project22</td>
+  <td>10</td>
+  <td>2</td>
+  <td>7</td>
+  </tr>
+  <tr>
+  <td>Project23</td>
+  <td>16</td>
+  <td>16</td>
+  <td>14</td>
+  </tr>
+  <tr>
+  <td>Project24</td>
+  <td>0</td>
+  <td>0</td>
+  <td>6</td>
+  </tr>
+  <tr>
+  <td>Project25</td>
+  <td>19</td>
+  <td>5</td>
+  <td>17</td>
+  </tr>
+  <tr>
+  <td>Project26</td>
+  <td>0</td>
+  <td>4</td>
+  <td>5</td>
+  </tr>
+  <tr>
+  <td>Project27</td>
+  <td>11</td>
+  <td>18</td>
+  <td>12</td>
+  </tr>
+  <tr>
+  <td>Project28</td>
+  <td>3</td>
+  <td>4</td>
+  <td>10</td>
+  </tr>
+  <tr>
+  <td>Project29</td>
+  <td>7</td>
+  <td>20</td>
+  <td>13</td>
+  </tr>
+  <tr>
+  <td>Project30</td>
+  <td>10</td>
+  <td>10</td>
+  <td>16</td>
+  </tr>
+  <tr>
+  <td>Project31</td>
+  <td>0</td>
+  <td>10</td>
+  <td>4</td>
+  </tr>
+  <tr>
+  <td>Project32</td>
+  <td>4</td>
+  <td>4</td>
+  <td>13</td>
+  </tr>
+  <tr>
+  <td>Project33</td>
+  <td>9</td>
+  <td>17</td>
+  <td>3</td>
+  </tr>
+  <tr>
+  <td>Project34</td>
+  <td>18</td>
+  <td>3</td>
+  <td>12</td>
+  </tr>
+  <tr>
+  <td>Project35</td>
+  <td>12</td>
+  <td>1</td>
+  <td>5</td>
+  </tr>
+  <tr>
+  <td>Project36</td>
+  <td>11</td>
+  <td>2</td>
+  <td>2</td>
+  </tr>
+  <tr>
+  <td>Project37</td>
+  <td>9</td>
+  <td>9</td>
+  <td>17</td>
+  </tr>
+  <tr>
+  <td>Project38</td>
+  <td>6</td>
+  <td>17</td>
+  <td>16</td>
+  </tr>
+  <tr>
+  <td>Project39</td>
+  <td>19</td>
+  <td>15</td>
+  <td>14</td>
+  </tr>
+
+</table>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>
