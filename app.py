@@ -116,21 +116,16 @@ def new_user():  # new user in list
 @app.route('/list/del_board', methods=['post'])
 def delet():
     boardID = request.args.get("id")
-    # boardID = request.query_string.get('id')
-    # resp = make_response(flask.redirect(f"/board/id={boardID}"))
-    # resp.set_cookie('userID', '')
+    boards.delete_one({"id": boardID})
     return flask.redirect('/list')
 
 
 @app.route('/list/board/exit', methods=['post'])
 def exxit():
-    # boardID = request.query_string.get('id')
-    # resp = make_response(flask.redirect(f"/board/id={boardID}"))
-    # resp.set_cookie('userID', '')
     return flask.redirect('/list')
 
 @app.route('/list/board/', methods=['post','get'])
-def mai():
+def in_board():
     boardID = request.args.get("id")
     lst = boards.find_one({"id": boardID})["notes"]
     resp = flask.render_template("board.html", lst = lst)
