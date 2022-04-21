@@ -28,15 +28,19 @@ def home():
 @app.route('/reg', methods=['GET', 'POST'])
 def reg_parse():
     name = (request.values['login'])
-    key = (request.values['psw'])
-    if not users.count_documents({"name": name}):
-        users.insert_one({"id": _64(), "name": name, "key": key})
-        resp = make_response(flask.render_template("main.html"))
+    key1 = (request.values['psw1'])
+    key2 = (request.values['psw2'])
+    if key1 != key2:
+        resp = (flask.render_template("gt.html"))
+        resp += "<p class=red>пароли не совпадают</p>"
+    elif not users.count_documents({"name": name}):
+        users.insert_one({"id": _64(), "name": name, "key": key1})
+        resp = flask.redirect('/list')
         cookie = users.find_one({"name": name})["id"]
         resp.set_cookie('userID', cookie)
     else:
-        resp = (flask.render_template("register.html"))
-        resp += "<p class=text>извините данный логин уже занят</p>"
+        resp = (flask.render_template("gt.html"))
+        resp += "<p class=red>извините данный логин уже занят</p>"
     return resp
 
 
@@ -109,14 +113,27 @@ def new_user():  # new user in list
     return flask.redirect('/list')
 
 
+@app.route('/list/del_board', methods=['post'])
+def delet():
+    boardID = request.args.get("id")
+    # boardID = request.query_string.get('id')
+    # resp = make_response(flask.redirect(f"/board/id={boardID}"))
+    # resp.set_cookie('userID', '')
+    return flask.redirect('/list')
+
+
+@app.route('/list/board/exit', methods=['post'])
+def exxit():
+    # boardID = request.query_string.get('id')
+    # resp = make_response(flask.redirect(f"/board/id={boardID}"))
+    # resp.set_cookie('userID', '')
+    return flask.redirect('/list')
+
 @app.route('/list/board/', methods=['post','get'])
 def mai():
     boardID = request.args.get("id")
     lst = boards.find_one({"id": boardID})["notes"]
-    lst.find('')
-    ip = lst["in_progress"]
-    dn = lst["done"]
-    resp = flask.render_template("board.html", td = td, ip = ip, dn = dn)
+    resp = flask.render_template("board.html", lst = lst)
     return resp
 
 
