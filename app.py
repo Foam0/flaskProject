@@ -28,15 +28,19 @@ def home():
 @app.route('/reg', methods=['GET', 'POST'])
 def reg_parse():
     name = (request.values['login'])
-    key = (request.values['psw'])
-    if not users.count_documents({"name": name}):
-        users.insert_one({"id": _64(), "name": name, "key": key})
+    key1 = (request.values['psw1'])
+    key2 = (request.values['psw2'])
+    if key1 != key2:
+        resp = (flask.render_template("gt.html"))
+        resp += "<p class=red>пароли не совпадают</p>"
+    elif not users.count_documents({"name": name}):
+        users.insert_one({"id": _64(), "name": name, "key": key1})
         resp = flask.redirect('/list')
         cookie = users.find_one({"name": name})["id"]
         resp.set_cookie('userID', cookie)
     else:
         resp = (flask.render_template("gt.html"))
-        resp += "<p class=text>извините данный логин уже занят</p>"
+        resp += "<p class=red>извините данный логин уже занят</p>"
     return resp
 
 
@@ -52,8 +56,6 @@ def authorize():
             return resp
         return flask.render_template("gt.html") + "<p class=red>неверный пароль</p>"
     return flask.render_template("gt.html") + "<p class=red>неверный логин</p>"
-
-
 
 
 @app.route('/list')
