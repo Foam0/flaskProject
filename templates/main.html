@@ -2,7 +2,9 @@
 <body>
 <p>ваш ник: {{ nickname }}</p>
 <form method="post" action='/list/add'>
-    <input type="text" name="board_name" placeholder="Введите имя доски"/>
+    <label>
+        <input type="text" name="board_name" placeholder="Введите имя доски" required/>
+    </label>
     <input type="submit" value="Создать доску!">
 </form>
 <form method="get" action='/list/new_user'>
@@ -10,13 +12,15 @@
     <input type="submit" value="Присоедениться к доске!">
 </form>
 <ul>
-    {% for desk in lst: %}
+    {% for desk in lst %}
         <form method="post" action="/list/board?id={{ desk['id'] }}">
             <p><input type="submit" value="перейти к доске">Название: {{ desk["name"] }}; ID: {{ desk["id"] }};
                 Участники: {{ desk["users"] }}</p>
-        </ul>
         </form>
+
     {% endfor %}
+</ul>
+
 <a class="container">main</a>
 </body>
 

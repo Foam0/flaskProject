@@ -93,16 +93,19 @@ def main():
             cnt_todo = str(cnt_todo)
             cnt_done = str(cnt_done)
             cnt_in_progress = str(cnt_in_progress)
-            d.append([j['name'], count_mine, cnt_todo, cnt_in_progress, cnt_in_progress])
+            d.append([j['name'], count_mine, cnt_todo, cnt_in_progress, cnt_in_progress, j["id"]])
     return flask.render_template("Projects table.html", lst=d, nickname=users.find_one({"id": userID})["name"])
 
 
 @app.route('/list/add', methods=['POST'])
 def add():
     userID = request.cookies.get("userID")
+    board_name = request.form.get("board_name")
+    if request.form.get("board_name") == '':
+        board_name = _64()
     boards.insert_one({
         "id": _64(),
-        "name": request.form.get("board_name"),
+        "name": board_name,
         "users": [userID],
         "notes": [
             {
@@ -143,7 +146,7 @@ def exxit():
     return flask.redirect('/list')
 
 
-@app.route('/list/board/', methods=['post', 'get'])
+@app.route('/list/board/', methods=['POST', 'GET'])
 def mai():
     boardID = request.args.get("id")
     lst = boards.find_one({"id": boardID})["notes"]
@@ -151,7 +154,7 @@ def mai():
     return resp
 
 
-@app.route('/list/board', methods=['post'])
+@app.route('/list/board', methods=['POST'])
 def go_to_board():
     boardID = request.query_string.get('id')
     userID = request.cookies.get("userID")

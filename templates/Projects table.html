@@ -8,7 +8,6 @@
         }
 
         #myInput {
-            background-image: url('/images/v9_136.png');
             background-position: 10px 10px;
             background-repeat: no-repeat;
             width: 100%;
@@ -28,6 +27,21 @@
         #myTable th, #myTable td {
             text-align: left;
             padding: 12px;
+
+        }
+
+        #myTable th, #myTable td {
+            text-align: left;
+            padding: 12px;
+            background: none;
+            border: none;
+        }
+
+        td a {
+            text-align: left;
+            padding: 12px;
+            background: none;
+            border: none;
         }
 
         #myTable tr {
@@ -37,27 +51,51 @@
         #myTable tr.header, #myTable tr:hover {
             background-color: #f1f1f1;
         }
+
+        .button {
+            background-color: #f1f1f1;
+            height: 30%;
+            width: 10%;
+            left: 30%;
+            top: 10%;
+        }
     </style>
+    <title></title>
 </head>
 <body>
 
 <h2>My Projects</h2>
+<form action="/list/add" method="post">
+    <label>
+        <input placeholder="Name of project" name="board_name">
+    </label>
+    <input type="submit" value="Create project!">
+</form>
+<form method="get" action='/list/new_user'>
+    <label>
+        <input placeholder="Id of project" name="">
+    </label>
+    <input type="submit" value="Join project!" placeholder="enter id">
+</form>
 
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for projects.." title="Type in a name">
 
 <table id="myTable">
     <tr class="header">
-        <th style="width:40%;">Project name</th>
-        <th style="width:20%;">Tasks in "To do"</th>
-        <th style="width:20%;">Tasks in progress</th>
-        <th style="width:20%;">Tasks done</th>
+        <th style="width:30%;">Project name</th>
+        <th style="width:20%;">I need to do</th>
+        <th style="width:16%;">Tasks in to do</th>
+        <th style="width:16%;">Tasks in progress</th>
+        <th style="width:16%;">Tasks done</th>
+
     </tr>
     {% for task in lst %}
         <tr>
-            <th style="width:40%">{{ task[0] }}</th>
-            <th style="width:20%">{{ task[1] }}</th>
-            <th style="width:20%">{{ task[2] }}</th>
-            <th style="width:20%">{{ task[3] }}</th>
+            <td><a methods="post" href="/list/board?id={{ task[5] }}" style="width:30%">{{ task[0] }}</a></td>
+            <td style="width:20%">{{ task[1] }}</td>
+            <td style="width:16%">{{ task[2] }}</td>
+            <td style="width:16%">{{ task[3] }}</td>
+            <td style="width:16%">{{ task[4] }}</td>
         </tr>
     {% endfor %}
 </table>
