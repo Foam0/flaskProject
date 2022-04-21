@@ -154,7 +154,6 @@ def mai():
 @app.route('/list/board', methods=['post'])
 def go_to_board():
     boardID = request.query_string.get('id')
-    userID = request.cookies.get("userID")
     resp = make_response(flask.redirect(f"/board/id={boardID}"))
     return resp
 
