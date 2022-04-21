@@ -31,11 +31,11 @@ def reg_parse():
     key = (request.values['psw'])
     if not users.count_documents({"name": name}):
         users.insert_one({"id": _64(), "name": name, "key": key})
-        resp = make_response(flask.render_template("main.html"))
+        resp = flask.redirect('/list')
         cookie = users.find_one({"name": name})["id"]
         resp.set_cookie('userID', cookie)
     else:
-        resp = (flask.render_template("register.html"))
+        resp = (flask.render_template("gt.html"))
         resp += "<p class=text>извините данный логин уже занят</p>"
     return resp
 
@@ -50,8 +50,8 @@ def authorize():
             cookie = users.find_one({"name": name})["id"]
             resp.set_cookie('userID', cookie)
             return resp
-        return "неверный пароль"
-    return "нет логина"
+        return flask.render_template("gt.html") + "<p class=red>неверный пароль</p>"
+    return flask.render_template("gt.html") + "<p class=red>неверный логин</p>"
 
 
 @app.route("/form_reg")
