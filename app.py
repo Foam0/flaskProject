@@ -3,7 +3,7 @@ from flask import make_response
 import flask
 from flask import Flask, request
 from pymongo import MongoClient
-
+from time import time
 
 def _64():
     alpf = 'abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ1234567890_.'
@@ -67,6 +67,7 @@ def auth_send():
 @app.route('/list')
 def main():
     userID = request.cookies.get("userID")
+    if userID == '': return flask.redirect('/')
     try:
         lst = list(boards.find({"users": userID}))
         for ind, e in enumerate(lst):
@@ -82,7 +83,21 @@ def main():
 @app.route('/list/add', methods=['POST'])
 def add():
     userID = request.cookies.get("userID")
-    boards.insert_one({"id": _64(), "name": request.form.get("board_name"), "users": [userID]})
+    boards.insert_one({
+        "id": _64(), 
+        "name": request.form.get("board_name"), 
+        "users": [userID], 
+        "notes":[
+            {
+                "id":"",
+                "name":"",
+                "status":"",
+                "contributors":[],
+                "host":"",
+                "time":time()
+            }
+        ]
+    })
     return flask.redirect('/list')
 
 
@@ -94,22 +109,22 @@ def new_user():  # new user in list
     return flask.redirect('/list')
 
 
-@app.route('/list/board/', methods=['post'])
+@app.route('/list/board/', methods=['post','get'])
 def mai():
-    return "main"
+    boardID = request.args.get("id")
+    lst = boards.find_one({"id": boardID})["notes"]
+    lst.find('')
+    ip = lst["in_progress"]
+    dn = lst["done"]
+    resp = flask.render_template("board.html", td = td, ip = ip, dn = dn)
+    return resp
 
 
 @app.route('/list/board', methods=['post'])
 def go_to_board():
     boardID = request.query_string.get('id')
-    userID = request.users.get("userID")
+    userID = request.cookies.get("userID")
     resp = make_response(flask.redirect(f"/board/id={boardID}"))
-    # cookie = users.find_one({"name": name})["id"]
-    resp.set_cookie('userID', userID)
-    lst = boards.find_one({"id": boardID})
-    td = lst["to_do"]
-    ip = lst["in_progress"]
-    dn = lst["done"]
     return resp
 
     # return flask.redirect(f'/list/boardID/{boardID}')
