@@ -88,9 +88,17 @@ def new_user():  # new user in list
     return flask.redirect('/list')
 
 
+@app.route('/list/board/exit', methods=['post'])
+def exxit():
+    # boardID = request.query_string.get('id')
+    # resp = make_response(flask.redirect(f"/board/id={boardID}"))
+    # resp.set_cookie('userID', '')
+    return flask.redirect('/list')
+
+
 @app.route('/list/board/', methods=['post'])
 def mai():
-    return "main"
+    return flask.render_template("board.html")
 
 
 @app.route('/list/board', methods=['post'])
