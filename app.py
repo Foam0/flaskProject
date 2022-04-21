@@ -17,8 +17,7 @@ client = MongoClient('localhost', 27017)
 database = client.test_database
 users = database.users
 boards = database.board
-# users.delete_many({})
-# boards.delete_many({})
+
 
 app = Flask(__name__)
 
@@ -138,9 +137,6 @@ def de_l():
 
 @app.route('/list/board/exit', methods=['post'])
 def exxit():
-    # boardID = request.query_string.get('id')
-    # resp = make_response(flask.redirect(f"/board/id={boardID}"))
-    # resp.set_cookie('userID', '')
     return flask.redirect('/list')
 
 
@@ -157,8 +153,6 @@ def go_to_board():
     boardID = request.query_string.get('id')
     resp = make_response(flask.redirect(f"/board/id={boardID}"))
     return resp
-
-    # return flask.redirect(f'/list/boardID/{boardID}')
 
 
 if __name__ == "__main__":
