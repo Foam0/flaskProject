@@ -1,0 +1,10 @@
+<html>
+<head></head>
+<body>
+  {% for task in lst %}
+  <p>{{ task }}</p>
+  {% endfor %}
+   <form method="post" action = '/list/board/exit'>
+      <input type = "submit" value = "Главный экран">
+   </form>
+</body>
