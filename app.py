@@ -4,6 +4,7 @@ import flask
 from flask import Flask, request
 from pymongo import MongoClient
 from time import time
+from datetime import datetime
 
 
 def _64():
@@ -12,7 +13,7 @@ def _64():
     for i in range(10): n += alpf[random.randint(0, 63)]
     return n
 
-count_of_projects = 0
+
 client = MongoClient('localhost', 27017)
 database = client.test_database
 users = database.users
@@ -101,8 +102,7 @@ def add():
     userID = request.cookies.get("userID")
     board_name = request.form.get("board_name")
     if request.form.get("board_name") == '':
-        board_name = f'Project{count_of_projects}'
-        count_of_projects += 1
+        board_name = 'Project ' + str(datetime.now())
     boards.insert_one({
         "id": _64(),
         "name": board_name,
