@@ -58,14 +58,6 @@ def authorize():
     return "нет логина"
 
 
-@app.route("/form_reg")
-def reg_send():
-    return flask.render_template("register.html")
-
-
-@app.route("/form_auth")
-def auth_send():
-    return flask.render_template("authorize.html")
 
 
 @app.route('/list')
