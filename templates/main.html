@@ -12,10 +12,9 @@
 	</form>
 	<ul>
 		{% for desk in lst: %}
-		<form method="post" action="/list/board?id={{desk['id']}}">
-	<p><input type="submit" value="перейти к доске">Название: {{ desk["name"] }}; ID: {{ desk["id"] }}; Участники: {{ desk["users"] }}</p>
-	</ul>
-		</form>
+	<form method="post" action="/list/board?id={{desk['id']}}"><input type="submit" value="перейти к доске"></form>
+	<form method="post" action="/list/del_board"> <input type="submit" value="удалить"></form>
+	<p>Название: {{ desk["name"] }}; ID: {{ desk["id"] }}; Участники: {{ desk["users"] }}</p>
         {% endfor %}
 <a class="container">main</a>
 </body>
