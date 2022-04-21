@@ -5,6 +5,7 @@ from flask import Flask, request
 from pymongo import MongoClient
 from time import time
 
+
 def _64():
     alpf = 'abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ1234567890_.'
     n = ''
@@ -16,6 +17,8 @@ client = MongoClient('localhost', 27017)
 database = client.test_database
 users = database.users
 boards = database.board
+# users.delete_many({})
+# boards.delete_many({})
 
 app = Flask(__name__)
 
@@ -61,6 +64,7 @@ def authorize():
 @app.route('/list')
 def main():
     userID = request.cookies.get("userID")
+    name = users.find_one({"id": userID})["name"]
     if userID == '': return flask.redirect('/')
     try:
         lst = list(boards.find({"users": userID}))
@@ -71,24 +75,43 @@ def main():
             lst[ind]["users"] = m
     except IndexError:
         lst = []
-    return flask.render_template("main.html", lst=lst, nickname=users.find_one({"id": userID})["name"])
+    d = []
+    for j in lst:
+        cnt_todo = 0
+        cnt_in_progress = 0
+        cnt_done = 0
+        count_mine = 0
+        for task in j["notes"]:
+            count_mine += task["contributors"].count(name)
+            if task["status"] == "todo":
+                cnt_todo += 1
+            if task["status"] == "in_pogress":
+                cnt_in_progress += 1
+            if task["status"] == "done":
+                cnt_done += 1
+            count_mine = str(count_mine)
+            cnt_todo = str(cnt_todo)
+            cnt_done = str(cnt_done)
+            cnt_in_progress = str(cnt_in_progress)
+            d.append([j['name'], count_mine, cnt_todo, cnt_in_progress, cnt_in_progress])
+    return flask.render_template("Projects table.html", lst=d, nickname=users.find_one({"id": userID})["name"])
 
 
 @app.route('/list/add', methods=['POST'])
 def add():
     userID = request.cookies.get("userID")
     boards.insert_one({
-        "id": _64(), 
-        "name": request.form.get("board_name"), 
-        "users": [userID], 
-        "notes":[
+        "id": _64(),
+        "name": request.form.get("board_name"),
+        "users": [userID],
+        "notes": [
             {
-                "id":"",
-                "name":"",
-                "status":"",
-                "contributors":[],
-                "host":"",
-                "time":time()
+                "id": "",
+                "name": "",
+                "status": "",
+                "contributors": [],
+                "host": "",
+                "time": time()
             }
         ]
     })
@@ -119,11 +142,12 @@ def exxit():
     # resp.set_cookie('userID', '')
     return flask.redirect('/list')
 
-@app.route('/list/board/', methods=['post','get'])
+
+@app.route('/list/board/', methods=['post', 'get'])
 def mai():
     boardID = request.args.get("id")
     lst = boards.find_one({"id": boardID})["notes"]
-    resp = flask.render_template("board.html", lst = lst)
+    resp = flask.render_template("board.html", lst=lst)
     return resp
 
 

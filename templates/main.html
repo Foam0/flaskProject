@@ -1,21 +1,22 @@
 <html>
-<head></head>
 <body>
-	<p>ваш ник: {{ nickname }}</p>
-	<form method="post" action = '/list/add'>
-		<input type = "text" name = "board_name"/>
-		<input type = "submit" value = "Создать доску!">
-	</form>
-	<form method="get" action = '/list/new_user'>
-		<input type = "text" name = "id"/>
-		<input type = "submit" value = "Присоедениться к доске!">
-	</form>
-	<ul>
-		{% for desk in lst: %}
-	<form method="post" action="/list/board?id={{desk['id']}}"><input type="submit" value="перейти к доске"></form>
-	<form method="post" action="/list/del_board"> <input type="submit" value="удалить"></form>
-	<p>Название: {{ desk["name"] }}; ID: {{ desk["id"] }}; Участники: {{ desk["users"] }}</p>
-        {% endfor %}
+<p>ваш ник: {{ nickname }}</p>
+<form method="post" action='/list/add'>
+    <input type="text" name="board_name" placeholder="Введите имя доски"/>
+    <input type="submit" value="Создать доску!">
+</form>
+<form method="get" action='/list/new_user'>
+    <input type="text" name="id"/>
+    <input type="submit" value="Присоедениться к доске!">
+</form>
+<ul>
+    {% for desk in lst: %}
+        <form method="post" action="/list/board?id={{ desk['id'] }}">
+            <p><input type="submit" value="перейти к доске">Название: {{ desk["name"] }}; ID: {{ desk["id"] }};
+                Участники: {{ desk["users"] }}</p>
+        </ul>
+        </form>
+    {% endfor %}
 <a class="container">main</a>
 </body>
 
