@@ -61,7 +61,7 @@ def authorize():
     return "нет логина"
 
 
-@app.route('/list')
+@app.route('/list', methods = ['post','get'])
 def main():
     userID = request.cookies.get("userID")
     name = users.find_one({"id": userID})["name"]
@@ -93,7 +93,7 @@ def main():
             cnt_todo = str(cnt_todo)
             cnt_done = str(cnt_done)
             cnt_in_progress = str(cnt_in_progress)
-            d.append([j['name'], count_mine, cnt_todo, cnt_in_progress, cnt_in_progress, j["id"]])
+        d.append([j['name'], count_mine, cnt_todo, cnt_in_progress, cnt_in_progress, j["id"]])
     return flask.render_template("Projects table.html", lst=d, nickname=users.find_one({"id": userID})["name"])
 
 
@@ -102,7 +102,7 @@ def add():
     userID = request.cookies.get("userID")
     board_name = request.form.get("board_name")
     if request.form.get("board_name") == '':
-        board_name = 'Project ' + str(datetime.now())
+         board_name = 'Project ' + datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
     boards.insert_one({
         "id": _64(),
         "name": board_name,
@@ -129,7 +129,7 @@ def new_user():  # new user in list
     return flask.redirect('/list')
 
 
-@app.route('/list/del_board', methods=['post'])
+@app.route('/list/del_board', methods=['post','get'])
 def de_l():
     boardID = request.args.get('id')
     boards.delete_one({"id": boardID})
