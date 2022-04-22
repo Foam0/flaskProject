@@ -136,11 +136,24 @@ def new_user():  # new user in list
     return flask.redirect('/list')
 
 
-@app.route("/list/board/task/update", methods=['get','post'])
+@app.route("/list/board/task/update", methods=['get', 'post'])
 def update_status():
     boardID = request.args.get("boardID")
-    status_task = request.form.get("status")
-    boards.update_one({"id": boardID}, {'$set': {"notes": {"status": status_task}}})
+    status_task = request.args.get("status")
+    task_id = request.args.get("taskID")
+    boards.update_one({"id": boardID, "notes.id": task_id}, {"$set": {"notes.$.status": status_task}})
+    # boards.update_one({"id": boardID}, {'$set': {"notes":{} {"status": status_task}}})
+    # d = boards.find({})
+    # flag = False
+    # for j in boards.find({"id": boardID}):
+    #     if flag:
+    #         break
+    #     for num, k in enumerate(j["notes"]):
+    #         if k["id"] == task_id:
+    #             k["status"] = status_task
+    #             boards.update_one({"id": boardID}, {'$pull': {"notes": {} {}}})
+    #             flag = True
+    #             break
     return flask.redirect(f"/list/board?id={boardID}")
 
 
