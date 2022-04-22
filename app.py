@@ -158,4 +158,4 @@ def go_to_board():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3000)
+    app.run(host="10.206.X.X", port=3000)
