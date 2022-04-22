@@ -19,7 +19,6 @@ database = client.test_database
 users = database.users
 boards = database.board
 
-
 app = Flask(__name__)
 
 
@@ -61,7 +60,7 @@ def authorize():
     return "нет логина"
 
 
-@app.route('/list', methods = ['post','get'])
+@app.route('/list', methods=['post', 'get'])
 def main():
     userID = request.cookies.get("userID")
     name = users.find_one({"id": userID})["name"]
@@ -102,7 +101,7 @@ def add():
     userID = request.cookies.get("userID")
     board_name = request.form.get("board_name")
     if request.form.get("board_name") == '':
-         board_name = 'Project ' + datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
+        board_name = 'Project ' + datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     boards.insert_one({
         "id": _64(),
         "name": board_name,
@@ -121,15 +120,16 @@ def add():
     return flask.redirect('/list')
 
 
-@app.route('/list/new_user', methods=['post','get'])
+@app.route('/list/new_user', methods=['post', 'get'])
 def new_user():  # new user in list
     userID = request.cookies.get("userID")
     boardID = request.args.get("id")
+    boardID = boardID.split()[0]
     if not boards.count_documents({"users": userID}): boards.update_one({"id": boardID}, {"$push": {"users": userID}})
     return flask.redirect('/list')
 
 
-@app.route('/list/del_board', methods=['post','get'])
+@app.route('/list/del_board', methods=['post', 'get'])
 def de_l():
     boardID = request.args.get('id')
     userID = request.cookies.get("userID")
