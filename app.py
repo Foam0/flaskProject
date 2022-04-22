@@ -136,6 +136,14 @@ def new_user():  # new user in list
     return flask.redirect('/list')
 
 
+@app.route("/list/board/task/update", methods=['get','post'])
+def update_status():
+    boardID = request.args.get("boardID")
+    status_task = request.form.get("status")
+    boards.update_one({"id": boardID}, {'$set': {"notes": {"status": status_task}}})
+    return flask.redirect(f"/list/board?id={boardID}")
+
+
 @app.route('/list/board/task/add', methods=['POST', 'GET'])
 def add_task():
     boardID = request.values['id']
