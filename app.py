@@ -81,7 +81,7 @@ def main():
         cnt_done = 0
         count_mine = 0
         for task in j["notes"]:
-            count_mine += task["contributors"].count(name)
+            count_mine += task["contributors"] == (str(name))
             if task["status"] == "todo":
                 cnt_todo += 1
             if task["status"] == "in_pogress":
@@ -102,24 +102,29 @@ def add():
     board_name = request.form.get("board_name")
     if request.form.get("board_name") == '':
         board_name = 'Project ' + datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
     boards.insert_one({
         "id": _64(),
         "name": board_name,
         "users": [userID],
-        "notes": [
+        "notes": []
+
+    })
+
+    return flask.redirect('/list')
+
+
+'''
             {
                 "id": "",
                 "importance": '',
                 "name": "",
                 "status": "",
-                "contributors": [],
+                "contributor": '',  # выполняющий и задающётся именем
                 "host": "",
                 "time": time(),
                 "desc": ''
-            }
-        ]
-    })
-    return flask.redirect('/list')
+            }            '''
 
 
 @app.route('/list/new_user', methods=['post', 'get'])
@@ -133,12 +138,12 @@ def new_user():  # new user in list
 
 @app.route('/list/board/task/add', methods=['POST', 'GET'])
 def add_task():
-    boardID = request.args.get('id')
+    boardID = request.values['id']
     userID = request.cookies.get('userID')
-    taskname = request.form.get('short_name')
-    who_do = request.form.get('who_do_task')
-    fullname = request.form.get('fullname')
-    imp = request.form.get('importance')
+    taskname = request.values['short_name']
+    who_do = request.values['who_do_task']
+    fullname = request.values['fullname']
+    imp = request.values['importance']
     boards.update_one({"id": boardID},
                       {"$push": {"notes": {"id": _64(), 'importance': imp, 'name': taskname, 'status': 'to do',
                                            'contributors': who_do, 'host': userID, 'time': time(), 'desc': fullname}}})

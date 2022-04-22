@@ -78,7 +78,7 @@
     <input type="submit" value="Join project!" placeholder="enter id">
 </form>
 <form method="get" action='/list/logout'>
-	<input type="submit" value="Logout">
+    <input type="submit" value="Logout">
 </form>
 
 
@@ -103,8 +103,7 @@
             <td style="width:10%">{{ task[4] }}</td>
             <td>
                 <form style="width: 30%" method="post"
-                      action='/list/del_board?id={{ task[5] }}'> {{ task[5] }}<br><input type="submit"
-                                                                                         value="🗑">
+                      action='/list/del_board?id={{ task[5] }}'> {{ task[5] }}<br><input type="submit" value="🗑">
                 </form>
             </td>
         </tr>
