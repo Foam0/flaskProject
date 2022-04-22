@@ -177,11 +177,18 @@
         <th style="width:16%;">Status</th>
         <th style="width:16%;">Performer</th>
         <th style="width:16%;">Description</th>
-
+        <th style="width:16%;">Dell</th>
     </tr>
     {% for task in lst %}
         <tr>
             <td><a methods="post" style="width:30%">{{ task['name'] }}</a>
+
+            </td>
+            <td style="width:20%">{{ task['importance'] }}</td>
+            <td style="width:16%">{{ task['status'] }}</td>
+            <td style="width:16%">{{ task['contributors'] }}</td>
+            <td style="width:16%">{{ task['desc'] }}</td>
+            <td style="width: 10%">
                 <form method='get' action='/list/board/task/del'><input
                         type="submit" value="🗑" \>
                     <label>
@@ -191,12 +198,7 @@
                         <input hidden value="{{ task['id'] }}" name="taskID">
                     </label>
                 </form>
-
             </td>
-            <td style="width:20%">{{ task['importance'] }}</td>
-            <td style="width:16%">{{ task['status'] }}</td>
-            <td style="width:16%">{{ task['contributors'] }}</td>
-            <td style="width:16%">{{ task['desc'] }}</td>
         </tr>
     {% endfor %}
 </table>
