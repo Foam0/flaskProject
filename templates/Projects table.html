@@ -95,21 +95,23 @@
 </header>
 
 
-<nobr style="margin-left: 1%; margin-top: 4%; font-size: 18pt">Create new project:</nobr>
-<nobr style="margin-left: 7%; margin-top: 4%; font-size: 18pt">Join project:</nobr>
-
 <form action="/list/add" method="post" style="padding: 30px 0px" style="margin-top: 0">
     <label>
+        <nobr style="margin-left: 1%; margin-top: 4%; font-size: 18pt">Create new project:</nobr>
+
         <input placeholder=" Project name.." name="board_name" style="margin-top: 0">
-        <button style="margin-left: 5%;margin-top: 0" type="submit">Create!</button>
+        <button style="margin-left: 1%;margin-top: 0" type="submit">Create!</button>
 
     </label>
 </form>
 <form method="get" action='/list/new_user' style="padding: 30px 0px">
+    <nobr style="margin-left: 1%; margin-top: 4%; font-size: 18pt">Join project:</nobr>
+
     <label>
+
         <input placeholder=" Project id.." name="id" style="margin-top: 0">
     </label>
-    <button style="margin-left: 5%; margin-top: 0" type="submit">Join!</button>
+    <button style="margin-left: 1%; margin-top: 0" type="submit">Join!</button>
 </form>
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for projects.."
        title="Type in a name" style="font-size: 16pt; margin-top: 1%">

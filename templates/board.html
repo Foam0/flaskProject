@@ -152,19 +152,21 @@
 
 <form method="get" action="/list/board/task/add">
     <input name="id" value="{{ boardID }}" hidden>
-    <input name="short_name" placeholder="Short name..." type="text"><select name="who_do_task">
+    <input name="short_name" placeholder="Short name..."
+           style="font-size: 14pt; background-color: #ddd;
+           border-radius: 5px; margin: 1% 0.5%" type="text"><select name="who_do_task">
     {% for user in un %}
         <option value="{{ user }}">{{ user }}</option>
     {% endfor %}
 </select>
-    <select name="importance">
+    <select name="importance" style="margin: 0.5% 0.5%">
         <option value="low">low</option>
         <option value="medium">medium</option>
         <option value="high">high</option>
     </select>
 
 
-    <p><textarea placeholder="Description..." rows="10" cols="45" name="fullname"></textarea></p>
+    <p style="margin-left: 0.5%"><textarea placeholder="Description..." rows="10" cols="70" name="fullname"></textarea></p>
     <input type="submit" value="Send task">
 </form>
 <form method="post" action='/list/board/exit'>
