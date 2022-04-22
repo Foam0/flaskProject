@@ -89,10 +89,10 @@ def main():
                 cnt_in_progress += 1
             if task["status"] == "done":
                 cnt_done += 1
-            count_mine = str(count_mine)
-            cnt_todo = str(cnt_todo)
-            cnt_done = str(cnt_done)
-            cnt_in_progress = str(cnt_in_progress)
+        count_mine = str(count_mine)
+        cnt_todo = str(cnt_todo)
+        cnt_done = str(cnt_done)
+        cnt_in_progress = str(cnt_in_progress)
         d.append([j['name'], count_mine, cnt_todo, cnt_in_progress, cnt_in_progress, j["id"]])
     return flask.render_template("Projects table.html", lst=d, nickname=users.find_one({"id": userID})["name"])
 
@@ -121,7 +121,7 @@ def add():
     return flask.redirect('/list')
 
 
-@app.route('/list/new_user', methods=['get'])
+@app.route('/list/new_user', methods=['post','get'])
 def new_user():  # new user in list
     userID = request.cookies.get("userID")
     boardID = request.args.get("id")
@@ -132,7 +132,8 @@ def new_user():  # new user in list
 @app.route('/list/del_board', methods=['post','get'])
 def de_l():
     boardID = request.args.get('id')
-    boards.delete_one({"id": boardID})
+    userID = request.cookies.get("userID")
+    boards.update_one({"id": boardID}, {'$pull': {"users": userID}})
     return flask.redirect('/list')
 
 
