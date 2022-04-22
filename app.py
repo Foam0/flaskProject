@@ -130,7 +130,6 @@ def new_user():  # new user in list
 
 
 @app.route('/list/del_board', methods=['post', 'get'])
-
 def de_l():
     boardID = request.args.get('id')
     userID = request.cookies.get("userID")
@@ -150,12 +149,18 @@ def mai():
     resp = flask.render_template("board.html", lst=lst)
     return resp
 
+@app.route("/list/board/task/del")
+def del_task():
+    boardID = request.args.get("boardID")
+    taskID = request.args.get("taskID")
+    boards.update_one({"id": boardID}, {'$pull': {"notes": {"id": taskID}}})
+    return flask.redirect(f"/board/id={boardID}")
+
 
 @app.route('/list/board', methods=['POST'])
 def go_to_board():
     boardID = request.query_string.get('id')
-    resp = make_response(flask.redirect(f"/board/id={boardID}"))
-    return resp
+    return flask.redirect(f"/board/id={boardID}")
 
 @app.route('/list/logout')
 def logout(): 
