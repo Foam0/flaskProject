@@ -50,9 +50,10 @@
             background: none;
             border: none;
         }
-         h2 {
-           font-size: 25pt;
-         }
+
+        h2 {
+            font-size: 25pt;
+        }
 
         td a {
             background: none;
@@ -86,33 +87,32 @@
     <title></title>
 </head>
 <body>
-<div class="bg-img">
-    <header>
-        <form method="get" action='/list/logout' style="margin-left: 2%">
-            <nobr style="font-size: 24pt"><b>My Projects</b></nobr>
-            <button style="float: right; margin-right: 3%" type="submit">Logout</button>
-        </form>
-    </header>
-
-    <form style="margin-top: 4%">
-        <nobr style="margin-left: 1%; font-size: 18pt">Create new project:</nobr>
-        <nobr style="margin-left: 7%; font-size: 18pt">Join project:</nobr>
+<header>
+    <form method="get" action='/list/logout' style="margin-left: 2%">
+        <nobr style="font-size: 24pt"><b>My Projects</b></nobr>
+        <button style="float: right; margin-right: 3%" type="submit">Logout</button>
     </form>
-    <form action="/list/add" method="post">
-        <label>
-            <input placeholder=" Project name.." name="board_name">
-            <input placeholder=" Project id.." name="id" style="margin-left: 4%">
-        </label>
-    </form>
-    <form method="get" action='/list/new_user' style="padding: 30px 0px">
-        <button style="margin-left: 5%" type="submit">Join!</button>
-        <button style="margin-left: 14%" type="submit">Create!</button>
-    </form>
+</header>
+
+<form style="margin-top: 4%">
+
+    <nobr style="margin-left: 1%; font-size: 18pt">Create new project:</nobr>
+    <nobr style="margin-left: 7%; font-size: 18pt">Join project:</nobr>
+</form>
+<form action="/list/add" method="post">
+    <label>
+        <input placeholder=" Project name.." name="board_name">
+        <input placeholder=" Project id.." name="id" style="margin-left: 4%">
+    </label>
+</form>
+<form method="get" action='/list/new_user' style="padding: 30px 0px">
+    <button style="margin-left: 5%" type="submit">Join!</button>
+    <button style="margin-left: 14%" type="submit">Create!</button>
+</form>
 
 
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for projects.."
-           title="Type in a name" style="font-size: 16pt; margin-top: 2%">
-</div>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for projects.."
+       title="Type in a name" style="font-size: 16pt; margin-top: 2%">
 
 <table id="myTable">
     <tr class="header">
@@ -123,6 +123,9 @@
         <th style="width:12.5%;">Tasks done</th>
         <th style="width:20%;">Project ID</th>
     </tr>
+    {% for task in lst %}
+
+
         <tr>
             <td style="width: 30%"><a methods="post" href="/list/board?id={{ task[5] }}"
                                       style="width:30%">{{ task[0] }}</a>
@@ -136,6 +139,8 @@
                 </form>
             </td>
         </tr>
+    {% endfor %}
+
 </table>
 
 <script>

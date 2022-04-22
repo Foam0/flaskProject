@@ -62,6 +62,7 @@ def authorize():
 
 @app.route('/list', methods=['post', 'get'])
 def main():
+
     userID = request.cookies.get("userID")
     name = users.find_one({"id": userID})["name"]
     if userID == '': return flask.redirect('/')
