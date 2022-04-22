@@ -149,6 +149,12 @@ def add_task():
                                            'contributors': who_do, 'host': userID, 'time': time(), 'desc': fullname}}})
     return flask.redirect(f"/list/board?id={boardID}")
 
+@app.route("/list/board/task/del", methods=['get','post'])
+def del_task():
+    boardID = request.args.get("boardID")
+    taskID = request.args.get("taskID")
+    boards.update_one({"id": boardID}, {'$pull': {"notes": {"id": taskID}}})
+    return flask.redirect(f"/board/id={boardID}")
 
 @app.route('/list/board/', methods=['POST', 'GET'])
 def mai1():
@@ -156,15 +162,15 @@ def mai1():
     lst = boards.find_one({"id": boardID})["notes"]
     userids = boards.find_one({"id": boardID})["users"]
     username = []
-    for id in userids:
-        username.append(users.find_one({'id': id})['name'])
+    for id_ in userids:
+        username.append(users.find_one({'id': id_})['name'])
     resp = flask.render_template("board.html", lst=lst, un=username, boardID=boardID)
     return resp
 
 
 @app.route('/list/del_board', methods=['post', 'get'])
 def de_l():
-    boardID = request.args.get('id')
+    boardID = request.args.get('boardID')
     userID = request.cookies.get("userID")
     boards.update_one({"id": boardID}, {'$pull': {"users": userID}})
     return flask.redirect('/list')
