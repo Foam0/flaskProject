@@ -157,6 +157,11 @@ def go_to_board():
     resp = make_response(flask.redirect(f"/board/id={boardID}"))
     return resp
 
+@app.route('/list/logout')
+def logout(): 
+    resp = flask.redirect('/')
+    resp.set_cookie('userID', '', expires = 0)
+    return resp
 
 if __name__ == "__main__":
-    app.run(host="10.206.X.X", port=3000)
+    app.run(host="0.0.0.0", port=3000)
