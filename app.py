@@ -162,9 +162,10 @@ def mai1():
     lst = boards.find_one({"id": boardID})["notes"]
     userids = boards.find_one({"id": boardID})["users"]
     username = []
+    status = ['high', 'medium', 'low']
     for id_ in userids:
         username.append(users.find_one({'id': id_})['name'])
-    resp = flask.render_template("board.html", lst=lst, un=username, boardID=boardID)
+    resp = flask.render_template("board.html", lst=lst, un=username, boardID=boardID, status=status)
     return resp
 
 
