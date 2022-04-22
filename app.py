@@ -84,7 +84,7 @@ def main():
             count_mine += task["contributors"] == (str(name))
             if task["status"] == "to do":
                 cnt_todo += 1
-            if task["status"] == "in_progress":
+            if task["status"] == "in progress":
                 cnt_in_progress += 1
             if task["status"] == "done":
                 cnt_done += 1
@@ -150,12 +150,12 @@ def add_task():
     return flask.redirect(f"/list/board?id={boardID}")
 
 
-@app.route("/list/board/task/del", methods=['get','post'])
+@app.route("/list/board/task/del", methods=['get', 'post'])
 def del_task():
-    boardID = request.args.get("boardID")
-    taskID = request.args.get("taskID")
+    boardID = request.values["id"]
+    taskID = request.values["taskID"]
     boards.update_one({"id": boardID}, {'$pull': {"notes": {"id": taskID}}})
-    return flask.redirect(f"/board/id={boardID}")
+    return flask.redirect(f"/list/board?id={boardID}")
 
 
 @app.route('/list/board/', methods=['POST', 'GET'])
@@ -164,7 +164,7 @@ def mai1():
     lst = boards.find_one({"id": boardID})["notes"]
     userids = boards.find_one({"id": boardID})["users"]
     username = []
-    status = ['to do', 'in_progress', 'done']
+    status = ['to do', 'in progress', 'done']
     for id_ in userids:
         username.append(users.find_one({'id': id_})['name'])
     resp = flask.render_template("board.html", lst=lst, un=username, boardID=boardID, status=status)
