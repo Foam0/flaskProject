@@ -82,7 +82,7 @@ def main():
         count_mine = 0
         for task in j["notes"]:
             count_mine += task["contributors"] == (str(name))
-            if task["status"] == "todo":
+            if task["status"] == "to do":
                 cnt_todo += 1
             if task["status"] == "in_pogress":
                 cnt_in_progress += 1
