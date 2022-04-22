@@ -3,8 +3,24 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        body {
+            font-family: Arial;
+        }
+
         * {
             box-sizing: border-box;
+        }
+
+        .bg-img {
+            /* The image used */
+            background-image: url({{ url_for ( "static", filename="bg.jpeg" ) }});
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         #myInput {
@@ -21,25 +37,24 @@
             border-collapse: collapse;
             width: 100%;
             border: 1px solid #ddd;
-            font-size: 18px;
+            font-size: 16pt;
         }
 
         #myTable th, #myTable td {
             text-align: left;
             padding: 12px;
-
         }
 
         #myTable th, #myTable td {
             text-align: left;
-            padding: 12px;
             background: none;
             border: none;
         }
+         h2 {
+           font-size: 25pt;
+         }
 
         td a {
-            text-align: left;
-            padding: 12px;
             background: none;
             border: none;
         }
@@ -52,62 +67,75 @@
             background-color: #f1f1f1;
         }
 
-        .button {
-            background-color: #f1f1f1;
-            height: 30%;
-            width: 10%;
-            left: 30%;
-            top: 10%;
+        form input {
+            font-size: 16pt;
+            border-radius: 5px;
+            margin-top: 1%;
         }
+
+        button {
+            font-size: 14pt;
+            background-color: #506E8A;
+            border-radius: 5px;
+            border: none;
+            padding: 10px 25px;
+            color: white;
+        }
+
     </style>
     <title></title>
 </head>
 <body>
+<div class="bg-img">
+    <header>
+        <form method="get" action='/list/logout' style="margin-left: 2%">
+            <nobr style="font-size: 24pt"><b>My Projects</b></nobr>
+            <button style="float: right; margin-right: 3%" type="submit">Logout</button>
+        </form>
+    </header>
 
-<h2>My Projects</h2>
-<form action="/list/add" method="post">
-    <label>
-        <input placeholder="Name of project" name="board_name">
-    </label>
-    <input type="submit" value="Create project!">
-</form>
-<form method="get" action='/list/new_user'>
-    <label>
-        <input placeholder="Id of project" name="id">
-    </label>
-    <input type="submit" value="Join project!" placeholder="enter id">
-</form>
-<form method="get" action='/list/logout'>
-    <input type="submit" value="Logout">
-</form>
+    <form style="margin-top: 4%">
+        <nobr style="margin-left: 1%; font-size: 18pt">Create new project:</nobr>
+        <nobr style="margin-left: 7%; font-size: 18pt">Join project:</nobr>
+    </form>
+    <form action="/list/add" method="post">
+        <label>
+            <input placeholder=" Project name.." name="board_name">
+            <input placeholder=" Project id.." name="id" style="margin-left: 4%">
+        </label>
+    </form>
+    <form method="get" action='/list/new_user' style="padding: 30px 0px">
+        <button style="margin-left: 5%" type="submit">Join!</button>
+        <button style="margin-left: 14%" type="submit">Create!</button>
+    </form>
 
 
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for projects.." title="Type in a name">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for projects.."
+           title="Type in a name" style="font-size: 16pt; margin-top: 2%">
+</div>
 
 <table id="myTable">
     <tr class="header">
         <th style="width:30%;">Project name</th>
-        <th style="width:10%;">I need to do</th>
-        <th style="width:10%;">Tasks in to do</th>
-        <th style="width:10%;">Tasks in progress</th>
-        <th style="width:10%;">Tasks done</th>
-        <th style="width:30%;">Tasks ID</th>
+        <th style="width:12.5%;">I need to do</th>
+        <th style="width:12.5%;">Tasks in to do</th>
+        <th style="width:12.5%;">Tasks in progress</th>
+        <th style="width:12.5%;">Tasks done</th>
+        <th style="width:20%;">Project ID</th>
     </tr>
-    {% for task in lst %}
         <tr>
             <td style="width: 30%"><a methods="post" href="/list/board?id={{ task[5] }}"
                                       style="width:30%">{{ task[0] }}</a>
-            <td style="width:10%">{{ task[1] }}</td>
-            <td style="width:10%">{{ task[2] }}</td>
-            <td style="width:10%">{{ task[3] }}</td>
-            <td style="width:10%">{{ task[4] }}</td>
+            <td style="width:12.5%">{{ task[1] }}</td>
+            <td style="width:12.5%">{{ task[2] }}</td>
+            <td style="width:12.5%">{{ task[3] }}</td>
+            <td style="width:12.5%">{{ task[4] }}</td>
             <td>
-                <form style="width: 30%" method="post"
+                <form style="width: 20%" method="post"
                       action='/list/del_board?id={{ task[5] }}'> {{ task[5] }}<br><input type="submit" value="🗑">
                 </form>
             </td>
         </tr>
-    {% endfor %}
 </table>
 
 <script>
