@@ -33,7 +33,7 @@ def reg_parse():
     key1 = (request.values['psw1'])
     key2 = (request.values['psw2'])
     if key1 != key2:
-        resp = (flask.render_template("gt.html", message='Passwords doesn\'t match' ))
+        resp = (flask.render_template("gt.html", message='Passwords doesn\'t match'))
     elif not users.count_documents({"name": name}):
         users.insert_one({"id": _64(), "name": name, "key": key1})
         resp = flask.redirect('/list')
@@ -148,7 +148,12 @@ def add_task():
     userID = request.cookies.get('userID')
     taskname = request.values['short_name']
     who_do = request.values['who_do_task']
-    fullname = request.values['fullname']
+    fullcopy = request.values['fullname']
+    fullname = ''
+    for i in range(len(fullcopy)):
+        fullname += fullcopy[i]
+        if i % 40 == 39:
+            fullname += '\n'
     imp = request.values['importance']
     boards.update_one({"id": boardID},
                       {"$push": {"notes": {"id": _64(), 'importance': imp, 'name': taskname, 'status': 'to do',
@@ -206,4 +211,3 @@ def logout():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000)
-
