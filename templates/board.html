@@ -1,6 +1,8 @@
 <html>
 <head>
-        <style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
         * {
             box-sizing: border-box;
         }
@@ -57,19 +59,117 @@
             left: 30%;
             top: 10%;
         }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+        .dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Кнопка выпадающего меню при наведении и фокусировке */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+/* Контейнер <div> - необходим для размещения выпадающего содержимого */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Выпадающее содержимое (скрыто по умолчанию) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Ссылки внутри выпадающего списка */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Изменение цвета выпадающих ссылок при наведении курсора */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Показать выпадающее меню (используйте JS, чтобы добавить этот класс .dropdown-content содержимого, когда пользователь нажимает на кнопку выпадающего списка) */
+.show {display:block;}
+.dropdown-checkbox{
+  position:relative;
+  display:inline-block
+}
+
+.dropdown-checkbox .label-title{
+  font-size:13px;
+
+}
+.dropdown-checkbox ul{
+     position: absolute;
+    background: #cacaca;
+    list-style: none;
+    min-width: 180px;
+    margin: 0px;
+    padding:0px;
+    left:0px;
+    display:none;
+    z-index:1;
+    border: 1px solid #9c9c9c;
+}
+.dropdown-checkbox ul li{
+    font-size: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #a5a5a5;
+    margin: 0px;
+}
+.dropdown-checkbox ul li input{
+  margin-right:10px;
+}
+
+.dropdown-checkbox:hover ul{
+  display:block
+
+
     </style>
 </head>
 <body>
-
 <!--  {% for task in lst %}-->
 <!--  <form method="post" action="/list/board/del_task?id={{task['id']}}">-->
 <!--	<input type = "submit" value = "удалить">-->
 <!--</form>-->
 <!--  <p>{{ task }}</p>-->
 <!--  {% endfor %}-->
-   <form method="post" action = '/list/board/exit'>
-      <input type = "submit" value = "Главный экран">
-   </form>
+<!--<form action="/list/board/add_task" method="get">-->
+
+<!--</form>-->
+<form method="get" action="/list/board/task/add">
+    <input name="short_name" placeholder="Short name..." type="text">
+    <select name="who_do_task">
+        {% for user in un %}
+        <option value="{{user}}">{{user}}</option>
+        {% endfor %}
+        </select>
+        <select name="importance">
+            <option value="high">high</option>
+            <option value="medium">medium</option>
+            <option value="low">low</option>
+        </select>
+
+
+    <p><textarea placeholder="Description..." rows="10" cols="45" name="fullname"></textarea></p>
+<input type="submit">
+</form>
+<form method="post" action='/list/board/exit'>
+    <input type="submit" value="Главный экран">
+</form>
 <table id="myTable">
     <tr class="header">
         <th style="width:30%;">Task name</th>
@@ -80,13 +180,13 @@
 
     </tr>
     {% for task in lst %}
-        <tr>
-            <td><a methods="post" href="/list/board?id={{ task[5] }}" style="width:30%">{{ task[0] }}</a></td>
-            <td style="width:20%">{{ task[1] }}</td>
-            <td style="width:16%">{{ task[2] }}</td>
-            <td style="width:16%">{{ task[3] }}</td>
-            <td style="width:16%">{{ task[4] }}</td>
-        </tr>
+    <tr>
+        <td><a methods="post" href="/list/board?id={{ task[5] }}" style="width:30%">{{ task[0] }}</a></td>
+        <td style="width:20%">{{ task[1] }}</td>
+        <td style="width:16%">{{ task[2] }}</td>
+        <td style="width:16%">{{ task[3] }}</td>
+        <td style="width:16%">{{ task[4] }}</td>
+    </tr>
     {% endfor %}
 </table>
 </body>
