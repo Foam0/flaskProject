@@ -9,22 +9,45 @@
         /* Style the tab */
         .tab {
             overflow: hidden;
-            border: 1px solid #ccc;
+            border: none;
             background-color: #f1f1f1;
+            width: 333px;
         }
+
+        .bg-img {
+            /* The image used */
+            background-image: url("bg.jpeg");
+
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .login-background {
+            /* The image used */
+            background-color: white;
+            height: 400px;
+            overflow: auto;
+            margin: 10px;
+        }
+
         .red {
             color: #e54141;
         }
         /* Style the buttons inside the tab */
         .tab button {
-            background-color: inherit;
             float: left;
             border: none;
             outline: none;
             cursor: pointer;
             padding: 14px 16px;
             transition: 0.3s;
-            font-size: 17px;
+            font-size: 25pt;
         }
         /* Change background color of buttons on hover */
         .tab button:hover {
@@ -38,47 +61,78 @@
         .tabcontent {
             display: none;
             padding: 6px 12px;
-            border: 1px solid #ccc;
+            border: none;
             border-top: none;
         }
+        input {
+            font-size: 18pt;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 2px 5px;
+        }
+
+        p {
+            font-size: 16pt;
+        }
+
+        p button {
+            font-size: 16pt;
+            background-color: #4caf50;
+            border-radius: 5px;
+            border: none;
+            padding: 10px 25px;
+            margin-left: 10%;
+            color: white;
+        }
+
+        h3 {
+            font-size: 20pt;
+            margin-left: 7%
+        }
+
     </style>
 </head>
 <body>
-<div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'Registration')">Registration</button>
-    <button class="tablinks" onclick="openCity(event, 'Log in')">Log in</button>
+<div class="bg-img">
+    <div class="login-background">
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'Registration')">Registration</button>
+            <button class="tablinks" onclick="openCity(event, 'Log in')">Log in</button>
+        </div>
+    <form id="Registration" class="tabcontent" action="reg">
+        <h3>Registration</h3>
+        <p>Enter login: <label>
+            <input type="text" name="login" placeholder="Enter login.." required>
+        </label></p>
+        <p>Input password: <label>
+            <input type="password" name="psw1" placeholder="Enter password.." required>
+        </label></p>
+        <p>Repeat password: <label>
+            <input type="password" name="psw2" placeholder="Enter password.." required>
+        </label></p>
+        <p>
+            <button type="submit">
+                Registration
+            </button>
+        </p>
+    </form>
+        <form id="Log in" class="tabcontent" action="auth">
+            <h3>Login</h3>
+            <p>Enter login: <label>
+                <input type="text" name="login" placeholder="Enter login.." required>
+            </label></p>
+            <p>Enter password: <label>
+                <input type="password" name="psw" placeholder="Enter password.." required>
+            </label></p>
+            <p>
+                <button type="submit">
+                    Log in
+                </button>
+            </p>
+        </form>
+    </div>
 </div>
-<form id="Registration" class="tabcontent" action="reg">
-    <h3>Registration</h3>
-    <p>Enter login: <label>
-        <input type="text" name="login" placeholder="Enter login" size="30" required>
-    </label></p>
-    <p>Input password: <label>
-        <input type="password" name="psw1" placeholder="Enter password" size="20" required>
-    </label></p>
-    <p>Repeat password: <label>
-        <input type="password" name="psw2" placeholder="Enter password" size="20" required>
-    </label></p>
-    <p>
-        <button type="submit">
-            OK
-        </button>
-    </p>
-</form>
-<form id="Log in" class="tabcontent" action="auth">
-    <h3>Login</h3>
-    <p>Enter login: <label>
-        <input type="text" name="login" placeholder="Enter login" size="30" required>
-    </label></p>
-    <p>Enter password: <label>
-        <input type="password" name="psw" placeholder="Enter password" size="20" required>
-    </label></p>
-    <p>
-        <button type="submit">
-            OK
-        </button>
-    </p>
-</form>
 <script>
     function openCity(evt, cityName) {
         var i, tabcontent, tablinks;
