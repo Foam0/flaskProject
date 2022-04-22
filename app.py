@@ -62,7 +62,6 @@ def authorize():
 
 @app.route('/list', methods=['post', 'get'])
 def main():
-
     userID = request.cookies.get("userID")
     name = users.find_one({"id": userID})["name"]
     if userID == '': return flask.redirect('/')
@@ -133,7 +132,8 @@ def new_user():  # new user in list
     userID = request.cookies.get("userID")
     boardID = request.args.get("id")
     boardID = boardID.split()[0]
-    if not boards.count_documents({"users": userID}): boards.update_one({"id": boardID}, {"$push": {"users": userID}})
+    if not boards.count_documents({"users": userID, 'id': boardID}): boards.update_one({"id": boardID},
+                                                                                       {"$push": {"users": userID}})
     return flask.redirect('/list')
 
 
@@ -210,5 +210,3 @@ def logout():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000)
-
-   
