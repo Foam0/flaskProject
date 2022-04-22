@@ -10,18 +10,14 @@
         .tab {
             overflow: hidden;
             border: none;
-            background-color: #f1f1f1;
         }
 
         .bg-img {
             /* The image used */
-            background-image: url("bg.jpeg");
-
+            background-image: url("../images/bg.jpeg");
             height: 100vh;
             display: flex;
             flex-direction: row;
-
-            /* Center and scale the image nicely */
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -30,11 +26,9 @@
         .login-background {
             /* The image used */
 
-            background-color: white;
-            height: 390px;
-            width: 490px;
+            background-color: #eee;
             overflow: auto;
-            margin: 10px;
+            margin: 10%;
             border-radius: 10px;
         }
 
@@ -43,13 +37,12 @@
         }
         /* Style the buttons inside the tab */
         .tab button {
-            float: left;
             border: none;
             outline: none;
             cursor: pointer;
-            padding: 14px 41.9px;
+            padding: 14px 11%;
             transition: 0.3s;
-            font-size: 30pt;
+            font-size: 23pt;
         }
         /* Change background color of buttons on hover */
         .tab button:hover {
@@ -97,36 +90,36 @@
 <div class="bg-img">
     <div class="login-background" style="margin:auto auto">
         <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'Registration')">Registration</button>
-            <button class="tablinks" onclick="openCity(event, 'Log in')">Log in</button>
+            <button class="tablinks" onclick="openCity(event, 'Registration')" style="float: left">Registration</button>
+            <button class="tablinks" onclick="openCity(event, 'Log in')" style="float: right">Log in</button>
         </div>
     <form id="Registration" class="tabcontent" action="reg">
         <h3 style="margin-left: 35%">Registration</h3>
-        <p style="margin-left: 3.5em">Enter login: <label>
+        <p style="margin-left: 16%">Enter login: <label>
             <input type="text" name="login" placeholder="Enter login.." required>
         </label></p>
-        <p style="margin-left: 1.3em">Enter password: <label>
+        <p style="margin-left: 16%">Enter password: <label>
             <input type="password" name="psw1" placeholder="Enter password.." required>
         </label></p>
-        <p style="margin-left: 0.5em">Repeat password: <label>
+        <p style="margin-left: 16%">Repeat password: <label>
             <input type="password" name="psw2" placeholder="Enter password.." required>
         </label></p>
         <p>
-            <button type="submit" style="margin-left: 33%">
+            <button type="submit" style="margin-left: 33%; margin-top: 2%">
                 Registration
             </button>
         </p>
     </form>
         <form id="Log in" class="tabcontent" action="auth">
             <h3 style="margin-left: 40%">Log in</h3>
-            <p style="margin-left: 2.9em">Enter login: <label>
+            <p style="margin-left: 16%">Enter login: <label>
                 <input type="text" name="login" placeholder="Enter login.." required>
             </label></p>
-            <p style="margin-left: 0.8em">Enter password: <label>
+            <p style="margin-left: 16%">Enter password: <label>
                 <input type="password" name="psw" placeholder="Enter password.." required>
             </label></p>
             <p>
-                <button type="submit" style="margin-left: 37%; margin-top: 2.6em">
+                <button type="submit" style="margin-left: 37%; margin-top: 20.5%">
                     Log in
                 </button>
             </p>
