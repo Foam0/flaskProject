@@ -142,7 +142,7 @@ def add_task():
     boards.update_one({"id": boardID},
                       {"$push": { "notes": {"id": _64(), 'importance': imp, 'name': taskname, 'status': 'to do',
                                   'contributors': who_do, 'host': userID, 'time': time(), 'desc': fullname}}})
-    return flask.redirect(f"/board/id={boardID}")
+    return flask.redirect(f"/list/board?id={boardID}")
 
 
 @app.route('/list/board/', methods=['POST', 'GET'])
@@ -173,7 +173,7 @@ def exxit():
 @app.route('/list/board', methods=['POST'])
 def go_to_board():
     boardID = request.query_string.get('id')
-    resp = make_response(flask.redirect(f"/board/id={boardID}"))
+    resp = make_response(flask.redirect(f"/board?id={boardID}"))
     return resp
 
 
