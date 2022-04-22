@@ -109,11 +109,13 @@ def add():
         "notes": [
             {
                 "id": "",
+                "importance": '',
                 "name": "",
                 "status": "",
                 "contributors": [],
                 "host": "",
-                "time": time()
+                "time": time(),
+                "desc": ''
             }
         ]
     })
@@ -129,6 +131,32 @@ def new_user():  # new user in list
     return flask.redirect('/list')
 
 
+@app.route('/list/board/task/add', methods=['POST', 'GET'])
+def add_task():
+    boardID = request.args.get('id')
+    userID = request.cookies.get('userID')
+    taskname = request.form.get('short_name')
+    who_do = request.form.get('who_do_task')
+    fullname = request.form.get('fullname')
+    imp = request.form.get('importance')
+    boards.update_one({"id": boardID},
+                      {"$push": { "notes": {"id": _64(), 'importance': imp, 'name': taskname, 'status': 'to do',
+                                  'contributors': who_do, 'host': userID, 'time': time(), 'desc': fullname}}})
+    return flask.redirect(f"/board/id={boardID}")
+
+
+@app.route('/list/board/', methods=['POST', 'GET'])
+def mai1():
+    boardID = request.args.get("id")
+    lst = boards.find_one({"id": boardID})["notes"]
+    userids = boards.find_one({"id": boardID})["users"]
+    username = []
+    for id in userids:
+        username.append(users.find_one({'id': id})['name'])
+    resp = flask.render_template("board.html", lst=lst, un=username,  boardID=boardID)
+    return resp
+
+
 @app.route('/list/del_board', methods=['post', 'get'])
 def de_l():
     boardID = request.args.get('id')
@@ -142,31 +170,19 @@ def exxit():
     return flask.redirect('/list')
 
 
-@app.route('/list/board/', methods=['POST', 'GET'])
-def mai():
-    boardID = request.args.get("id")
-    lst = boards.find_one({"id": boardID})["notes"]
-    resp = flask.render_template("board.html", lst=lst)
-    return resp
-
-@app.route("/list/board/task/del")
-def del_task():
-    boardID = request.args.get("boardID")
-    taskID = request.args.get("taskID")
-    boards.update_one({"id": boardID}, {'$pull': {"notes": {"id": taskID}}})
-    return flask.redirect(f"/board/id={boardID}")
-
-
 @app.route('/list/board', methods=['POST'])
 def go_to_board():
     boardID = request.query_string.get('id')
-    return flask.redirect(f"/board/id={boardID}")
+    resp = make_response(flask.redirect(f"/board/id={boardID}"))
+    return resp
+
 
 @app.route('/list/logout')
-def logout(): 
+def logout():
     resp = flask.redirect('/')
-    resp.set_cookie('userID', '', expires = 0)
+    resp.set_cookie('userID', '', expires=0)
     return resp
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000)
