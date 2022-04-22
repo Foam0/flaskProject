@@ -173,7 +173,7 @@ def mai1():
 
 @app.route('/list/del_board', methods=['post', 'get'])
 def de_l():
-    boardID = request.args.get('boardID')
+    boardID = request.values['id']
     userID = request.cookies.get("userID")
     boards.update_one({"id": boardID}, {'$pull': {"users": userID}})
     return flask.redirect('/list')
