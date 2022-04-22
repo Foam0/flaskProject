@@ -140,8 +140,8 @@ def add_task():
     fullname = request.form.get('fullname')
     imp = request.form.get('importance')
     boards.update_one({"id": boardID},
-                      {"$push": { "notes": {"id": _64(), 'importance': imp, 'name': taskname, 'status': 'to do',
-                                  'contributors': who_do, 'host': userID, 'time': time(), 'desc': fullname}}})
+                      {"$push": {"notes": {"id": _64(), 'importance': imp, 'name': taskname, 'status': 'to do',
+                                           'contributors': who_do, 'host': userID, 'time': time(), 'desc': fullname}}})
     return flask.redirect(f"/list/board?id={boardID}")
 
 
@@ -153,7 +153,7 @@ def mai1():
     username = []
     for id in userids:
         username.append(users.find_one({'id': id})['name'])
-    resp = flask.render_template("board.html", lst=lst, un=username,  boardID=boardID)
+    resp = flask.render_template("board.html", lst=lst, un=username, boardID=boardID)
     return resp
 
 
