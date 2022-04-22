@@ -165,10 +165,10 @@
 
 
     <p><textarea placeholder="Description..." rows="10" cols="45" name="fullname"></textarea></p>
-    <input type="submit">
+    <input type="submit" value="Send task">
 </form>
 <form method="post" action='/list/board/exit'>
-    <input type="submit" value="Главный экран">
+    <input type="submit" value="Main menu">
 </form>
 <table id="myTable">
     <tr class="header">
@@ -200,7 +200,7 @@
                     </label>
                     <label><input type="hidden" name="taskID" value="{{ task['id'] }}"></label>
                     <label><input type="hidden" name="boardID" value="{{ boardID }}"></label>
-                    <input type="submit" value="отправить изменения">
+                    <input type="submit" value="send changes">
                 </form>
             </td>
             <td style="width:16%">{{ task['contributors'] }}</td>
