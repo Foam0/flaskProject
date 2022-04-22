@@ -83,19 +83,24 @@
 <table id="myTable">
     <tr class="header">
         <th style="width:30%;">Project name</th>
-        <th style="width:20%;">I need to do</th>
-        <th style="width:16%;">Tasks in to do</th>
-        <th style="width:16%;">Tasks in progress</th>
-        <th style="width:16%;">Tasks done</th>
-
+        <th style="width:0%;">I need to do</th>
+        <th style="width:0%;">Tasks in to do</th>
+        <th style="width:0%;">Tasks in progress</th>
+        <th style="width:0%;">Tasks done</th>
+        <th style="width:40%;">Tasks ID</th>
     </tr>
     {% for task in lst %}
         <tr>
-		<td><a methods="post" href="/list/board?id={{ task[5] }}" style="width:30%">{{ task[0] }}</a><form method="post" action='/list/del_board?id={{ task[5] }}'> {{task[5]}}<input type="submit" value="🗑"></form></td>
-            <td style="width:20%">{{ task[1] }}</td>
-            <td style="width:16%">{{ task[2] }}</td>
-            <td style="width:16%">{{ task[3] }}</td>
-            <td style="width:16%">{{ task[4] }}</td>
+            <td style="width: 30%"><a methods="post" href="/list/board?id={{ task[5] }}" style="width:30%">{{ task[0] }}</a>
+            <td style="width:0%">{{ task[1] }}</td>
+            <td style="width:0%">{{ task[2] }}</td>
+            <td style="width:0%">{{ task[3] }}</td>
+            <td style="width:0%">{{ task[4] }}</td>
+            <td>
+                <form style="width: 40%" method="post" action='/list/del_board?id={{ task[5] }}'> {{ task[5] }}<br><input type="submit"
+                                                                                                   value="🗑">
+                </form>
+            </td>
         </tr>
     {% endfor %}
 </table>
