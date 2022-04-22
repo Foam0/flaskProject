@@ -154,7 +154,7 @@ def del_task():
     boardID = request.args.get("boardID")
     taskID = request.args.get("taskID")
     boards.update_one({"id": boardID}, {'$pull': {"notes": {"id": taskID}}})
-    return flask.redirect(f"/board/id={boardID}")
+    return flask.redirect(f"/list/board?id={boardID}")
 
 @app.route('/list/board/', methods=['POST', 'GET'])
 def mai1():
