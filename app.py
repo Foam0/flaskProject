@@ -130,6 +130,7 @@ def new_user():  # new user in list
 
 
 @app.route('/list/del_board', methods=['post', 'get'])
+
 def de_l():
     boardID = request.args.get('id')
     userID = request.cookies.get("userID")
