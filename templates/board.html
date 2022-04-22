@@ -185,11 +185,11 @@
 
             </td>
             <td style="width:20%">{{ task['importance'] }}</td>
-            <td><select style="width:16%">
-                {% for st in status %}
-                    <option>{{ st }}</option>
-                {% endfor %}
-            </select></td>
+            <td><select name="select" onchange="document.getElementsByTagName('button')[0].style.display=this.selectedIndex ? '':'none'">
+            {% for st in status %}
+            <option>{{ st }}</option>
+            {% endfor %}
+        </select><form><button style="display: none;">Подтвердить</button></form></td>
             <td style="width:16%">{{ task['contributors'] }}</td>
             <td style="width:16%">{{ task['desc'] }}</td>
             <td>
