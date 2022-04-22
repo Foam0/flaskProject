@@ -33,16 +33,14 @@ def reg_parse():
     key1 = (request.values['psw1'])
     key2 = (request.values['psw2'])
     if key1 != key2:
-        resp = (flask.render_template("gt.html"))
-        resp += "<p class=red>пароли не совпадают</p>"
+        resp = (flask.render_template("gt.html", message='Passwords doesn\'t match' ))
     elif not users.count_documents({"name": name}):
         users.insert_one({"id": _64(), "name": name, "key": key1})
         resp = flask.redirect('/list')
         cookie = users.find_one({"name": name})["id"]
         resp.set_cookie('userID', cookie)
     else:
-        resp = (flask.render_template("gt.html"))
-        resp += "<p class=red>извините данный логин уже занят</p>"
+        resp = flask.render_template("gt.html", message='Such login already exists')
     return resp
 
 
@@ -56,8 +54,7 @@ def authorize():
             cookie = users.find_one({"name": name})["id"]
             resp.set_cookie('userID', cookie)
             return resp
-        return "неверный пароль"
-    return "нет логина"
+    return flask.render_template("gt.html", message='Incorrect login/password')
 
 
 @app.route('/list', methods=['post', 'get'])
@@ -132,8 +129,7 @@ def new_user():  # new user in list
     userID = request.cookies.get("userID")
     boardID = request.args.get("id")
     boardID = boardID.split()[0]
-    if not boards.count_documents({"users": userID, 'id': boardID}): boards.update_one({"id": boardID},
-                                                                                       {"$push": {"users": userID}})
+    if not boards.count_documents({"users": userID}): boards.update_one({"id": boardID}, {"$push": {"users": userID}})
     return flask.redirect('/list')
 
 
@@ -210,3 +206,4 @@ def logout():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000)
+
