@@ -1,3 +1,12 @@
-# flaskProject
-hacaton
-pip install flask
+# Task Manager
+## About:
+Сайт для удобного распределения задач в команде
+
+## Autors:
+- Черноус Максим
+- Голиков Егор
+- Журавлёв Максим
+- Михасенко Алексей
+
+## Requirements:
+
