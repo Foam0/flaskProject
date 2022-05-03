@@ -28,6 +28,22 @@ def home():
     return flask.render_template('gt.html')
 
 
+@app.route('/reg', methods=['GET', 'POST'])
+def reg_parse():
+    name = (request.values['login'])
+    key1 = (request.values['psw1'])
+    key2 = (request.values['psw2'])
+    if key1 != key2:
+        resp = (flask.render_template("gt.html", message='Passwords doesn\'t match'))
+    elif not users.count_documents({"name": name}):
+        users.insert_one({"id": _64(), "name": name, "key": key1})
+        resp = flask.redirect('/list')
+        cookie = users.find_one({"name": name})["id"]
+        resp.set_cookie('userID', cookie)
+    else:
+        resp = flask.render_template("gt.html", message='Such login already exists')
+    return resp
+
 
 @app.route('/auth', methods=['GET', 'POST'])
 def authorize():
@@ -109,9 +125,22 @@ def add():
             }            '''
 
 
+@app.route('/list/new_user', methods=['post', 'get'])
+def new_user():  # new user in list
+    userID = request.cookies.get("userID")
+    boardID = request.args.get("id")
+    boardID = boardID.split()[0]
+    if not boards.count_documents({"users": userID}): boards.update_one({"id": boardID}, {"$push": {"users": userID}})
+    return flask.redirect('/list')
 
 
-
+@app.route("/list/board/task/update", methods=['get', 'post'])
+def update_status():
+    boardID = request.args.get("boardID")
+    status_task = request.args.get("status")
+    task_id = request.args.get("taskID")
+    boards.update_one({"id": boardID, "notes.id": task_id}, {"$set": {"notes.$.status": status_task}})
+    return flask.redirect(f"/list/board?id={boardID}")
 
 
 @app.route('/list/board/task/add', methods=['POST', 'GET'])
@@ -133,7 +162,12 @@ def add_task():
     return flask.redirect(f"/list/board?id={boardID}")
 
 
-
+@app.route("/list/board/task/del", methods=['get', 'post'])
+def del_task():
+    boardID = request.values["id"]
+    taskID = request.values["taskID"]
+    boards.update_one({"id": boardID}, {'$pull': {"notes": {"id": taskID}}})
+    return flask.redirect(f"/list/board?id={boardID}")
 
 
 @app.route('/list/board/', methods=['POST', 'GET'])
@@ -162,7 +196,11 @@ def exxit():
     return flask.redirect('/list')
 
 
-
+@app.route('/list/board', methods=['POST'])
+def go_to_board():
+    boardID = request.query_string.get('id')
+    resp = make_response(flask.redirect(f"/board?id={boardID}"))
+    return resp
 
 
 @app.route('/list/logout')
