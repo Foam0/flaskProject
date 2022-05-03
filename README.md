@@ -9,6 +9,6 @@
 - Михасенко Алексей
 
 ## Requirements:
-#### Flask >= 2.1.2
-#### pymongo >= 4.1.1
-#### python >= 3.8
+### Flask >= 2.1.2
+### pymongo >= 4.1.1
+### python >= 3.8
