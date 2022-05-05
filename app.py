@@ -1,11 +1,9 @@
 import random
-from flask import make_response
+from flask import *
 import flask
-from flask import Flask, request
 from pymongo import MongoClient
 from time import time
 from datetime import datetime
-
 
 
 def _64():
